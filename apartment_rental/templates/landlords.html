@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Орендодавці{% endblock %}
+
+{% block content %}
+<h2>Список орендодавців</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ПІБ</th>
+            <th>Телефон</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for landlord in landlords %}
+        <tr>
+            <td>{{ landlord.id }}</td>
+            <td>{{ landlord.full_name }}</td>
+            <td>{{ landlord.phone }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Угоди{% endblock %}
+
+{% block content %}
+<h2>Список угод</h2>
+
+<p>
+    <a class="btn" href="/deals/create?role={{ role }}">Оформити угоду</a>
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Квартира</th>
+            <th>Клієнт</th>
+            <th>Місяців</th>
+            <th>Загальна сума</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for deal in deals %}
+        <tr>
+            <td>{{ deal.id }}</td>
+            <td>{{ deal.apartment.title }}</td>
+            <td>{{ deal.client.full_name }}</td>
+            <td>{{ deal.months }}</td>
+            <td>{{ deal.total_price }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

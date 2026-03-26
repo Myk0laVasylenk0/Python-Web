@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Оренда квартир{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Система оренди квартир</h1>
+            <nav>
+                <a href="/?role={{ role }}">Головна</a>
+                <a href="/apartments?role={{ role }}">Квартири</a>
+                <a href="/landlords?role={{ role }}">Орендодавці</a>
+                <a href="/clients?role={{ role }}">Клієнти</a>
+                <a href="/cities?role={{ role }}">Міста</a>
+                <a href="/deals?role={{ role }}">Угоди</a>
+            </nav>
+        <div class="role-box">
+            <span>Поточна роль: <strong>{{ role }}</strong></span>
+            <a href="{{ request.url.path }}?role=user">User</a>
+            <a href="{{ request.url.path }}?role=admin">Admin</a>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

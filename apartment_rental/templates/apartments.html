@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Квартири{% endblock %}
+
+{% block content %}
+<h2>Список квартир</h2>
+
+{% if role == 'admin' %}
+<p>
+    <a class="btn" href="/apartments/create?role={{ role }}">Додати квартиру</a>
+</p>
+{% endif %}
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Назва</th>
+            <th>Адреса</th>
+            <th>Кімнат</th>
+            <th>Ціна</th>
+            <th>Статус</th>
+            <th>Місто</th>
+            <th>Орендодавець</th>
+            {% if role == 'admin' %}
+            <th>Дії</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for apartment in apartments %}
+        <tr>
+            <td>{{ apartment.id }}</td>
+            <td>{{ apartment.title }}</td>
+            <td>{{ apartment.address }}</td>
+            <td>{{ apartment.rooms }}</td>
+            <td>{{ apartment.price }}</td>
+            <td>{{ apartment.status }}</td>
+            <td>{{ apartment.city.name }}</td>
+            <td>{{ apartment.landlord.full_name }}</td>
+            {% if role == 'admin' %}
+            <td class="actions-cell">
+                <div class="actions">
+                    <a class="btn action-btn" href="/apartments/{{ apartment.id }}/edit?role={{ role }}">
+                        Редагувати
+                    </a>
+
+                    <form action="/apartments/{{ apartment.id }}/delete?role={{ role }}" method="post" class="delete-form">
+                        <button type="submit" class="danger action-btn">Видалити</button>
+                    </form>
+                </div>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

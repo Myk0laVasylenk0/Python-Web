@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Головна{% endblock %}
+
+{% block content %}
+<h2>Ласкаво просимо до системи оренди квартир</h2>
+<p>У системі є дві ролі:</p>
+<ul>
+    <li><strong>Адміністратор</strong> — створює, редагує, видаляє квартири</li>
+    <li><strong>Користувач</strong> — переглядає квартири та оформлює угоди</li>
+</ul>
+
+<h3>Доступні квартири</h3>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Назва</th>
+            <th>Адреса</th>
+            <th>Кімнат</th>
+            <th>Ціна</th>
+            <th>Статус</th>
+            <th>Місто</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for apartment in apartments %}
+        <tr>
+            <td>{{ apartment.id }}</td>
+            <td>{{ apartment.title }}</td>
+            <td>{{ apartment.address }}</td>
+            <td>{{ apartment.rooms }}</td>
+            <td>{{ apartment.price }}</td>
+            <td>{{ apartment.status }}</td>
+            <td>{{ apartment.city.name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

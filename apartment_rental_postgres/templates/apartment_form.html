@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if apartment %}Редагування квартири{% else %}Створення квартири{% endif %}
+{% endblock %}
+
+{% block content %}
+<h2>
+    {% if apartment %}Редагування квартири{% else %}Створення квартири{% endif %}
+</h2>
+
+<form method="post"
+      action="{% if apartment %}/apartments/{{ apartment.id }}/edit?role={{ role }}{% else %}/apartments/create?role={{ role }}{% endif %}">
+    
+    <label>Назва:</label>
+    <input type="text" name="title" value="{{ apartment.title if apartment else '' }}" required>
+
+    <label>Адреса:</label>
+    <input type="text" name="address" value="{{ apartment.address if apartment else '' }}" required>
+
+    <label>Кількість кімнат:</label>
+    <input type="number" name="rooms" value="{{ apartment.rooms if apartment else '' }}" required>
+
+    <label>Ціна за місяць:</label>
+    <input type="number" name="price" value="{{ apartment.price if apartment else '' }}" required>
+
+    <label>Місто:</label>
+    <select name="city_id" required>
+        {% for city in cities %}
+        <option value="{{ city.id }}"
+            {% if apartment and apartment.city_id == city.id %}selected{% endif %}>
+            {{ city.name }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label>Орендодавець:</label>
+    <select name="landlord_id" required>
+        {% for landlord in landlords %}
+        <option value="{{ landlord.id }}"
+            {% if apartment and apartment.landlord_id == landlord.id %}selected{% endif %}>
+            {{ landlord.full_name }}
+        </option>
+        {% endfor %}
+    </select>
+
+    {% if apartment %}
+    <label>Статус:</label>
+    <select name="status">
+        <option value="available" {% if apartment.status == 'available' %}selected{% endif %}>available</option>
+        <option value="rented" {% if apartment.status == 'rented' %}selected{% endif %}>rented</option>
+    </select>
+    {% endif %}
+
+    <button type="submit">Зберегти</button>
+</form>
+{% endblock %}
